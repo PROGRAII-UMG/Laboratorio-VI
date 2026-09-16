@@ -1,0 +1,203 @@
+openapi: 3.0.0
+info:
+  title: API de la entidad Libro
+  version: 1.0.0
+
+paths:
+  /libros:
+    post:
+      summary: Crear un nuevo libro
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                autor:
+                  type: string
+                isbn:
+                  type: string
+                anioPublicacion:
+                  type: integer
+                estado:
+                  type: string
+      responses:
+        '201':
+          description: Libro creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                      type: integer
+                  titulo:
+                      type: string
+                  autor:
+                      type: string
+                  isbn:
+                      type: string
+                  anioPublicacion:
+                      type: integer
+                  estado:
+                      type: string
+        '400':
+          description: Datos invalidos 
+    get:
+      summary: Obtener todos los libros creados (con filtro opcional por titulo)
+      parameters:
+        - name: titulo
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de libros
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    titulo:
+                      type: string
+                    autor:
+                      type: string
+                    isbn:
+                      type: string
+                    anioPublicacion:
+                      type: integer
+                    estado:
+                      type: string
+        '404':
+          description: No se encontraron libros con ese titulo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  error:
+                    type: string
+                    example: Not found
+                  message:
+                    type: string
+                    example: No existe un libro con el titulo ingresado.
+  /libros/{id}:
+    put:
+      summary: Actualizar un libro por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                titulo:
+                  type: string
+                autor:
+                  type: string
+                isbn:
+                  type: string
+                anioPublicacion:
+                  type: integer
+                estado:
+                  type: string
+      responses:
+        '200':
+          description: Libro actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  titulo:
+                    type: string
+                  autor:
+                    type: string
+                  isbn:
+                    type: string
+                  anioPublicacion:
+                    type: integer
+                  estado:
+                    type: string
+        '400':
+          description: Datos invalidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: Bad request.
+                  message:
+                    type: string
+                    example: No se pudo procesar la informacion de manera correcta.
+        '404':
+          description: Libro no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  error:
+                    type: string
+                    example: Not found
+                  message:
+                    type: string
+                    example: No existe un libro con el id ingresado.
+    delete:
+      summary: Eliminar un libro por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Libro eliminado correctamente.
+        '404':
+          description: Libro no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  error:
+                    type: string
+                    example: Not found
+                  message:
+                    type: string
+                    example: No existe un libro con el id ingresado.
+              
+                    
