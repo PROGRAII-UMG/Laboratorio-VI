@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: API de la entidad Libro
+  title: API de la entidad Curso
   version: 1.0.0
 
 paths:
-  /libros:
+  /cursos:
     post:
-      summary: Crear un nuevo libro
+      summary: Crear un curso nuevo
       requestBody:
         required: true
         content:
@@ -14,49 +14,64 @@ paths:
             schema:
               type: object
               properties:
-                titulo:
+                nombre:
                   type: string
-                autor:
+                codigo:
                   type: string
-                isbn:
-                  type: string
-                anioPublicacion:
+                creditos:
                   type: integer
                 estado:
-                  type: string
+                  type: integer
       responses:
         '201':
-          description: Libro creado correctamente
+          description: Curso creado correctamente
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   id:
-                      type: integer
-                  titulo:
-                      type: string
-                  autor:
-                      type: string
-                  isbn:
-                      type: string
-                  anioPublicacion:
-                      type: integer
+                    type: integer
+                    example: 1
+                  nombre:
+                    type: string
+                    example: Programacion II
+                  codigo:
+                    type: string
+                    example: 220260900017B
+                  creditos:
+                    type: integer
+                    example: 5
                   estado:
-                      type: string
+                    type: integer
+                    example: 1
         '400':
-          description: Datos invalidos 
+          description: Datos invalidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: Bad Request
+                  message:
+                    type: string
+                    example: No se puede procesar la información de manera correcta.
     get:
-      summary: Obtener todos los libros creados (con filtro opcional por titulo)
+      summary: Obtener todos los cursos creados (con filtro opcional por codigo)
       parameters:
-        - name: titulo
+        - name: codigo
           in: query
           required: false
           schema:
             type: string
       responses:
         '200':
-          description: Lista de libros
+          description: Lista de cursos
           content:
             application/json:
               schema:
@@ -66,18 +81,21 @@ paths:
                   properties:
                     id:
                       type: integer
-                    titulo:
+                      example: 1
+                    nombre:
                       type: string
-                    autor:
+                      example: Programacion II
+                    codigo:
                       type: string
-                    isbn:
-                      type: string
-                    anioPublicacion:
+                      example: 220260900017B
+                    creditos:
                       type: integer
+                      example: 5
                     estado:
-                      type: string
+                      type: integer
+                      example: 1
         '404':
-          description: No se encontraron libros con ese titulo
+          description: No se encontro el curso con el codigo ingresado.
           content:
             application/json:
               schema:
@@ -91,10 +109,10 @@ paths:
                     example: Not found
                   message:
                     type: string
-                    example: No existe un libro con el titulo ingresado.
-  /libros/{id}:
+                    example: No existe el curso con el codigo ingresado.
+  /cursos/{id}:
     put:
-      summary: Actualizar un libro por id
+      summary: Actualizar el curso por id
       parameters:
         - name: id
           in: path
@@ -108,19 +126,17 @@ paths:
             schema:
               type: object
               properties:
-                titulo:
+                nombre:
                   type: string
-                autor:
+                codigo:
                   type: string
-                isbn:
-                  type: string
-                anioPublicacion:
+                creditos:
                   type: integer
                 estado:
-                  type: string
+                  type: integer
       responses:
         '200':
-          description: Libro actualizado correctamente
+          description: Curso actualizado correctamente
           content:
             application/json:
               schema:
@@ -128,16 +144,16 @@ paths:
                 properties:
                   id:
                     type: integer
-                  titulo:
+                    example: 1
+                  nombre:
                     type: string
-                  autor:
+                    example: Calculo II
+                  codigo:
                     type: string
-                  isbn:
-                    type: string
-                  anioPublicacion:
-                    type: integer
+                    example: 220260900016B
                   estado:
                     type: string
+                    example: 0
         '400':
           description: Datos invalidos
           content:
@@ -155,7 +171,7 @@ paths:
                     type: string
                     example: No se pudo procesar la informacion de manera correcta.
         '404':
-          description: Libro no encontrado
+          description: Curso no encontrado
           content:
             application/json:
               schema:
@@ -169,9 +185,9 @@ paths:
                     example: Not found
                   message:
                     type: string
-                    example: No existe un libro con el id ingresado.
+                    example: No existe un curso con el id ingresado.
     delete:
-      summary: Eliminar un libro por id
+      summary: Eliminar curso por id
       parameters:
         - name: id
           in: path
@@ -180,9 +196,9 @@ paths:
             type: integer
       responses:
         '204':
-          description: Libro eliminado correctamente.
+          description: Curso eliminado correctamente
         '404':
-          description: Libro no encontrado
+          description: Curso no encontrado
           content:
             application/json:
               schema:
@@ -196,6 +212,5 @@ paths:
                     example: Not found
                   message:
                     type: string
-                    example: No existe un libro con el id ingresado.
-              
-                    
+                    example: No existe un curso con el id ingresado.
+                
