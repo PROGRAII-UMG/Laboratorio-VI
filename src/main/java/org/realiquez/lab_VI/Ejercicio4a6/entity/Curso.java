@@ -1,15 +1,15 @@
-package org.realiquez.lab_VI.entity;
+package org.realiquez.lab_VI.Ejercicio4a6.entity;
 
 public class Curso {
     private Long id;
     private String nombre;
     private String codigo;
     private Integer creditos;
-    private Boolean estado;
+    private boolean estado;
 
     public Curso(){}
 
-    public Curso(String nombre, String codigo, Integer creditos, Boolean estado){
+    public Curso(String nombre, String codigo, Integer creditos, boolean estado){
         this.nombre = nombre;
         this.codigo = codigo;
         this.creditos = creditos;
@@ -29,6 +29,6 @@ public class Curso {
     public Integer getCreditos(){return this.creditos;}
     public void setCreditos(Integer cred){this.creditos = cred;}
 
-    public Boolean getEstado(){return this.estado;}
-    public void setEstado(Boolean estado){ this.estado = estado;}
+    public boolean isEstado(){return this.estado;}
+    public void setEstado(boolean estado){ this.estado = estado;}
 }
